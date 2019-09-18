@@ -56,25 +56,27 @@ export class JitsiViewContainer extends Component {
 
     handleChange (e) {
         let { name, value } = e.target
-        this.setState({[name]: value})
+        this.setState({ [name]: value })
     }
 
     joinRoom() {
-        let roomName = this.state.roomName
+        let { roomName, nickName } = this.state
+
         if(!roomName.trim()) return
+
+        const domain = 'meet.jit.si';
+        const options = {
+            roomName,
+            // width: 800,
+            // height: 800,
+            parentNode: document.querySelector('#meet')
+        };
+
         this.setState({ isRoom: true }, () =>{
-            const domain = 'localhost:8080';
-            const options = {
-                roomName,
-                width: 1000,
-                height: 1000,
-                nickName: 'HEYYYY',
-                parentNode: document.querySelector('#meet')
-            };
             const api = new JitsiMeetExternalAPI(domain, options);
-            api.executeCommand('displayName', this.state.nickName);
+            api.executeCommand('displayName', nickName);
         })
-        
+        return
     }
 
     renderInputOrRoom() {
@@ -83,38 +85,40 @@ export class JitsiViewContainer extends Component {
 
     renderInput() {
         return (
-                <Card style={{padding: '70px'}}>
-                <h1 className="lead" style={{textSize: 30}}>JOIN ROOM</h1>
-                        <Form>
-                            <FormGroup>
-                                <Label for="roomName">Room Name</Label>
-                                <Input
-                                    value={this.state.roomName}
-                                    type="text" name="roomName" id="roomName"
-                                    placeholder="myRoom"
-                                    onChange={this.handleChange}
-                                />
-                                <Label for="roomName">Nick Name</Label>
-                                <Input
-                                    value={this.state.nickName}
-                                    type="text" name="nickName" id="nickName"
-                                    placeholder="Jonas"
-                                    onChange={this.handleChange}
-                                />
-                            </FormGroup>
-                        </Form>
-                        {this.renderContact()}
-                        <Button color="primary" onClick={()=>{this.joinRoom()}}>Join</Button>
-                </Card>
+            <div className="container-fluid" >
+                <div className="justify-content-center align-items-center row" style={{minHeight: '100vh'}}>
+                    <Card style={{padding: '65px'}}>
+                    <h1 className="lead">JOIN ROOM</h1>
+                            <Form>
+                                <FormGroup>
+                                    <Label for="roomName">Room Name</Label>
+                                    <Input
+                                        value={this.state.roomName}
+                                        type="text" name="roomName" id="roomName"
+                                        placeholder="myRoom"
+                                        onChange={this.handleChange}
+                                    />
+                                    <Label for="roomName">Nick Name</Label>
+                                    <Input
+                                        value={this.state.nickName}
+                                        type="text" name="nickName" id="nickName"
+                                        placeholder="Jonas"
+                                        onChange={this.handleChange}
+                                    />
+                                </FormGroup>
+                            </Form>
+                            {this.renderContact()}
+                            <Button color="primary" onClick={()=>{this.joinRoom()}}>Join</Button>
+                    </Card>
+                </div>
+            </div>
         )
     }
 
     render() {
         return (
-            <div className="container-fluid" >
-                <div id="meet" className="justify-content-center align-items-center row" style={{minHeight: '100vh'}}>
-                    {this.renderInputOrRoom()}
-                </div>
+            <div id="meet" style={{ position: 'absolute', left: 0, right: 0, bottom: 0, top: 0 }}>
+                {this.renderInputOrRoom()}
             </div>
         )
     }

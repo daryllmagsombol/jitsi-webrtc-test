@@ -67656,24 +67656,24 @@ function (_Component) {
   }, {
     key: "joinRoom",
     value: function joinRoom() {
-      var _this2 = this;
-
-      var roomName = this.state.roomName;
+      var _this$state = this.state,
+          roomName = _this$state.roomName,
+          nickName = _this$state.nickName;
       if (!roomName.trim()) return;
+      var domain = 'meet.jit.si';
+      var options = {
+        roomName: roomName,
+        // width: 800,
+        // height: 800,
+        parentNode: document.querySelector('#meet')
+      };
       this.setState({
         isRoom: true
       }, function () {
-        var domain = 'localhost:8080';
-        var options = {
-          roomName: roomName,
-          width: 1000,
-          height: 1000,
-          nickName: 'HEYYYY',
-          parentNode: document.querySelector('#meet')
-        };
         var api = new JitsiMeetExternalAPI(domain, options);
-        api.executeCommand('displayName', _this2.state.nickName);
+        api.executeCommand('displayName', nickName);
       });
+      return;
     }
   }, {
     key: "renderInputOrRoom",
@@ -67683,17 +67683,21 @@ function (_Component) {
   }, {
     key: "renderInput",
     value: function renderInput() {
-      var _this3 = this;
+      var _this2 = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container-fluid"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "justify-content-center align-items-center row",
         style: {
-          padding: '70px'
+          minHeight: '100vh'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+        style: {
+          padding: '65px'
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-        className: "lead",
-        style: {
-          textSize: 30
-        }
+        className: "lead"
       }, "JOIN ROOM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Form"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
         "for": "roomName"
       }, "Room Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
@@ -67715,22 +67719,23 @@ function (_Component) {
       }))), this.renderContact(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
         color: "primary",
         onClick: function onClick() {
-          _this3.joinRoom();
+          _this2.joinRoom();
         }
-      }, "Join"));
+      }, "Join"))));
     }
   }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container-fluid"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "meet",
-        className: "justify-content-center align-items-center row",
         style: {
-          minHeight: '100vh'
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          top: 0
         }
-      }, this.renderInputOrRoom()));
+      }, this.renderInputOrRoom());
     }
   }]);
 
@@ -67775,7 +67780,7 @@ react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render(react__WEBPACK_IMPORTED_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/daryll/Documents/Projects/jitsi-webrtc-test/resources/js/index.js */"./resources/js/index.js");
+module.exports = __webpack_require__(/*! C:\Projects\jitsi-webrtc-test\resources\js\index.js */"./resources/js/index.js");
 
 
 /***/ }),
